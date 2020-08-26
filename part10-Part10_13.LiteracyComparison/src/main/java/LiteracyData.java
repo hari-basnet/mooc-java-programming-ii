@@ -15,9 +15,9 @@ public class LiteracyData {
     private String country;
     private int year;
     private String gender;
-    private int literacyRate;
+    private double literacyRate;
 
-    public LiteracyData(String country, int year, String gender, int literacyRate) {
+    public LiteracyData(String country, int year, String gender, double literacyRate) {
         this.country = country;
         this.year = year;
         this.gender = gender;
@@ -52,17 +52,17 @@ public class LiteracyData {
         return literacyRate;
     }
 
-    public void setLiteracyRate(int literacyRate) {
+    public void setLiteracyRate(double literacyRate) {
         this.literacyRate = literacyRate;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.country);
-        hash = 97 * hash + this.year;
-        hash = 97 * hash + Objects.hashCode(this.gender);
-        hash = 97 * hash + this.literacyRate;
+        hash = 89 * hash + Objects.hashCode(this.country);
+        hash = 89 * hash + this.year;
+        hash = 89 * hash + Objects.hashCode(this.gender);
+        hash = 89 * hash + (int) (Double.doubleToLongBits(this.literacyRate) ^ (Double.doubleToLongBits(this.literacyRate) >>> 32));
         return hash;
     }
 
@@ -81,7 +81,7 @@ public class LiteracyData {
         if (this.year != other.year) {
             return false;
         }
-        if (this.literacyRate != other.literacyRate) {
+        if (Double.doubleToLongBits(this.literacyRate) != Double.doubleToLongBits(other.literacyRate)) {
             return false;
         }
         if (!Objects.equals(this.country, other.country)) {
@@ -97,8 +97,8 @@ public class LiteracyData {
 
     @Override
     public String toString() {
-        return this.country + "(" + this.year + ")," + this.gender + "," + this.literacyRate;
+        return this.country + " (" + this.year + "), " + this.gender + ", " + this.literacyRate;
     }
-    
+
     
 }
