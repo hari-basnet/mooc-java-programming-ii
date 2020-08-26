@@ -9,9 +9,8 @@ public class PrintingUserInput {
 
         ArrayList<String> inputs = new ArrayList<>();
         
-        String input = scanner.nextLine();
-        
         while(true) {
+            String input = scanner.nextLine();
             
             if(input.equals("")){
                 break;
@@ -20,8 +19,6 @@ public class PrintingUserInput {
             inputs.add(input);
         }
         
-        String combined = inputs.stream()
-                            .reduce("",(previousString, word) -> previousString + word + "\n");
-        System.out.println(combined);
+        inputs.stream().forEach(System.out::println);
     }
 }
