@@ -1,4 +1,6 @@
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainProgram {
@@ -6,6 +8,38 @@ public class MainProgram {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        List<Book> books = new ArrayList<>();
+        
+        while(true) {
+            
+            System.out.println("Input the name of the book, empty stops: ");
+            
+            String nameOfBook = "NaN";
+            if(scanner.hasNextLine()){nameOfBook = scanner.nextLine();}
+            
+            
+            if(nameOfBook.equals("")){
+                break;
+            }
+            
+            System.out.println("Input the age recommendation: ");
+            int recommendedAge = 0;
+            if(scanner.hasNextLine()){ recommendedAge = Integer.valueOf(scanner.nextLine());}
+            
+            
+            books.add(new Book(nameOfBook, recommendedAge));
+            
+            
+        }
+        
+        System.out.println("");
+        
+        System.out.println(books.size() + " books in total.");
+        
+        System.out.println("Books: ");
+        books.stream()
+                .forEach(book -> System.out.println(book.toString()));
+        
     }
 
 }
