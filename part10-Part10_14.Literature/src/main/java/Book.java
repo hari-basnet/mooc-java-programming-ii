@@ -30,4 +30,13 @@ public class Book {
         return this.name + " (recommended for " + this.age + " year-olds or older)" ;
     }
     
+//    it can be done this way by implementing Comparable      
+//     @Override
+//    public int compareTo(Book o) {
+//        if (this.age == o.age) {
+//            return this.name.compareTo(o.name);
+//        }
+// 
+//        return this.age - o.age;
+//    }
 }
