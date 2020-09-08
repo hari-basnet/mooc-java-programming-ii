@@ -6,9 +6,7 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -17,24 +15,25 @@ import java.util.stream.Collectors;
 public class AverageSensor implements Sensor {
 
     private ArrayList<Sensor> sensors;
-    private boolean isOn;
+    private ArrayList<Integer> allReadings;
 
     public AverageSensor() {
         this.sensors = new ArrayList<>();
-        this.isOn = false;
+        this.allReadings = new ArrayList<>();
     }
     
     
     @Override
     public boolean isOn() {
+        boolean flag = false;
         for(Sensor sensor : sensors) {
             if(sensor.isOn()){
-                isOn = true;
+                flag = true;
             }else {
-                isOn = false;
+                flag = false;
             }
         }
-        return isOn;
+        return flag;
     }
 
     @Override
@@ -49,10 +48,16 @@ public class AverageSensor implements Sensor {
 
     @Override
     public int read() {
-       
-        double average =  this.sensors.stream().mapToInt(sensor -> sensor.read()).average().getAsDouble();
+        if (sensors.isEmpty() || !isOn()) {
+            throw new IllegalStateException();
+        }
+        int averageReading =  (int) sensors.stream()
+                                    .mapToInt(sensor -> sensor.read())
+                                    .average()
+                                    .getAsDouble();
         
-        return (int) average;
+        this.allReadings.add(averageReading);
+        return averageReading;
     }
     
     public void addSensor(Sensor toAdd) {
@@ -61,13 +66,11 @@ public class AverageSensor implements Sensor {
     
      public List<Integer> readings() {
          
-         List<Integer> xxxd = this.sensors.stream().map(sensor -> sensor.read()).collect(Collectors.toList());
-         
-         if(xxxd == null){
-             return Collections.emptyList();
+         if(sensors.isEmpty()){
+             return new ArrayList<>();
+         }else {
+             return this.allReadings;
          }
-         
-         return xxxd;
      }
     
 }
