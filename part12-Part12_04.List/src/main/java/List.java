@@ -1,3 +1,6 @@
+
+import java.util.Arrays;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -84,5 +87,9 @@ public class List<Type> {
         
         this.values = newValues;
     }
-    
+
+    @Override
+    public String toString() {
+        return "List{" + "values=" + Arrays.toString(values) + ", firstFreeIndex=" + firstFreeIndex + '}';
+    }
 }
